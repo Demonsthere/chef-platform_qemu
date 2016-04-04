@@ -4,7 +4,7 @@ execute 'update repository cache' do
 end
 
 node['platform_qemu']['packages'].each do |pkg|
-  package pkg do
+  apt_package pkg do
     action :upgrade
     default_release node['platform_qemu']['release']
   end

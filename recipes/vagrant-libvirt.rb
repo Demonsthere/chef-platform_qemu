@@ -1,4 +1,4 @@
-remote_file "/tmp/vagrant_#{node['platform_qemu']['vagrant_version']}_x86_64.deb" do
+remote_file "#{Chef::Config[:file_cache_path]}/vagrant_#{node['platform_qemu']['vagrant_version']}_x86_64.deb" do
   owner 'root'
   group 'root'
   mode '0644'
@@ -7,7 +7,7 @@ remote_file "/tmp/vagrant_#{node['platform_qemu']['vagrant_version']}_x86_64.deb
 end
 
 dpkg_package "vagrant_#{node['platform_qemu']['vagrant_version']}_x86_64.deb" do
-  source "/tmp/vagrant_#{node['platform_qemu']['vagrant_version']}_x86_64.deb"
+  source "#{Chef::Config[:file_cache_path]}/vagrant_#{node['platform_qemu']['vagrant_version']}_x86_64.deb"
 end
 
 execute 'Install librivt plugin for vagrant' do
