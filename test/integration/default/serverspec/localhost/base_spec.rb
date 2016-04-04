@@ -16,8 +16,8 @@ describe file('/usr/bin/packer') do
   it { should be_executable }
 end
 
-describe file('/') do
-  it { should be_mounted }
+describe file('/home/vagrant/.register_set') do
+  it { should exist }
 end
 
 describe file('/proc/sys/fs/binfmt_misc') do
@@ -26,4 +26,13 @@ end
 
 describe command('packer version') do
   its(:exit_status) { should eq 0 }
+end
+
+describe command('vagrant version') do
+  its(:exit_status) { should eq 0 }
+end
+
+describe command('vagrant plugin list') do
+  its(:exit_status) { should eq 0 }
+  its(:stdout) { should contain('vagrant-libvirt') }
 end

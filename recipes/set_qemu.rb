@@ -9,7 +9,11 @@ execute 'Setup the binary register' do
   command 'sh set_register.sh'
   cwd '/tmp'
   user 'root'
-  creates '/tmp/.register_set'
   action :run
-  not_if { ::File.exists?('/tmp/.register_set') }
+  not_if { ::File.exists?('/home/vagrant/.register_set') }
+end
+
+execute 'Create register timestamp' do
+  command 'echo $(date +%c) > /home/vagrant/.register_set'
+  action :run
 end

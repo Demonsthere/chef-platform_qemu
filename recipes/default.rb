@@ -6,3 +6,4 @@
 include_recipe 'platform_qemu::preparation'
 include_recipe 'platform_qemu::set_qemu'
 include_recipe 'platform_qemu::packer'
+include_recipe 'platform_qemu::vagrant-libvirt'
