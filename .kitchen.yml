@@ -15,4 +15,8 @@ suites:
     run_list:
       - recipe[platform_qemu::default]
     attributes:
-        
+    driver:
+      network:
+        - [ 'private_network', { ip: '192.168.42.11' } ]
+      synced_folders:
+        - ["data/", "/home/vagrant/data"]

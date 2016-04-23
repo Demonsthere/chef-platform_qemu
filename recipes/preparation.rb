@@ -9,3 +9,11 @@ node['platform_qemu']['packages'].each do |pkg|
     default_release node['platform_qemu']['release']
   end
 end
+
+node['platform_qemu']['groups'].each do |grp|
+  group grp do
+    action :modify
+    members node['platform_qemu']['users']
+    append true
+  end
+end

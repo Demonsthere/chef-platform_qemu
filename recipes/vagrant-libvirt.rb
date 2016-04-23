@@ -10,8 +10,10 @@ dpkg_package "vagrant_#{node['platform_qemu']['vagrant_version']}_x86_64.deb" do
   source "#{Chef::Config[:file_cache_path]}/vagrant_#{node['platform_qemu']['vagrant_version']}_x86_64.deb"
 end
 
-execute 'Install librivt plugin for vagrant' do
-  command 'vagrant plugin install vagrant-libvirt'
-  user 'vagrant'
-  action :run
+node['platform_qemu']['vagrant_plugins'].each do |plugin|
+  execute 'Install librivt plugin for vagrant' do
+    command "vagrant plugin install #{plugin}"
+    user 'vagrant'
+    action :run
+  end
 end
