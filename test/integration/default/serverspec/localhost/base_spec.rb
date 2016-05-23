@@ -3,7 +3,7 @@ require_relative '../spec_helper'
 # ----------------------------
 # qemu & packer specs
 # ----------------------------
-packages = %w(qemu linaro-image-tools debootstrap)
+packages = %w(qemu vagrant debootstrap)
 
 packages.each do |pkg|
   describe package(pkg) do
@@ -22,6 +22,12 @@ end
 
 describe file('/proc/sys/fs/binfmt_misc') do
   it { should be_mounted }
+end
+
+describe command('linaro-media-create -v') do
+  its(:exit_status) { should eq 0 }
+  its(:stderr) { should contain('linaro-media-create') }
+  its(:stderr) { should contain('qemu-arm version') }
 end
 
 describe command('packer version') do

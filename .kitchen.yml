@@ -17,6 +17,6 @@ suites:
     attributes:
     driver:
       network:
-        - [ 'private_network', { ip: '192.168.42.11' } ]
+        - [ 'private_network', { ip: '192.168.24.11' } ]
       synced_folders:
         - ["data/", "/home/vagrant/data"]

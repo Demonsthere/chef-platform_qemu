@@ -10,9 +10,36 @@ execute 'update repository cache' do
   action :run
 end
 
+execute 'Backup original sfdisk' do
+  command 'mv sfdisk sfdisk.back'
+  cwd '/sbin/'
+  action :run
+end
+
+cookbook_file '/sbin/sfdisk' do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  source 'sfdisk'
+end
+
 node['platform_qemu']['packages'].each do |pkg|
-  apt_package pkg do
-    default_release node['platform_qemu']['release']
+  apt_package pkg
+end
+
+node['platform_qemu']['linaro_dep'].each do |dep|
+  apt_package dep
+end
+
+git '/usr/sbin/linaro-image-tools' do
+  repository 'http://git.linaro.org/ci/linaro-image-tools.git'
+  reference 'master'
+  action :sync
+end
+
+%w(linaro-hwpack-append linaro-hwpack-create linaro-hwpack-replace linaro-media-create linaro-android-media-create linaro-hwpack-convert linaro-hwpack-install).each do |bin|
+  link "usr/sbin/#{bin}" do
+    to "/usr/sbin/linaro-image-tools/#{bin}"
   end
 end
 
