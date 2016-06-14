@@ -11,7 +11,9 @@ execute 'update repository cache' do
 end
 
 node['platform_qemu']['packages'].each do |pkg|
-  apt_package pkg
+  apt_package pkg do
+    options '-o APT::Force-LoopBreak=1'
+  end
 end
 
 node['platform_qemu']['linaro_dep'].each do |dep|
