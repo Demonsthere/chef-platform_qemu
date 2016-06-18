@@ -16,12 +16,22 @@ describe file('/usr/bin/packer') do
   it { should be_executable }
 end
 
-describe file('/etc/default/.register_set') do
-  it { should exist }
-end
+# describe file('/etc/default/.register_set') do
+#   it { should exist }
+# end
 
 describe file('/proc/sys/fs/binfmt_misc') do
   it { should be_mounted }
+end
+
+describe file('/proc/sys/fs/binfmt_misc/qemu-arm') do
+  it { should exist }
+  its(:content) { should match('enabled') }
+end
+
+describe file('/proc/sys/fs/binfmt_misc/status') do
+  it { should exist }
+  its(:content) { should match('enabled') }
 end
 
 describe command('linaro-media-create -v') do
