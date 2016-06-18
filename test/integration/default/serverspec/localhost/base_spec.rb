@@ -16,7 +16,7 @@ describe file('/usr/bin/packer') do
   it { should be_executable }
 end
 
-describe file('/home/vagrant/.register_set') do
+describe file('/etc/default/.register_set') do
   it { should exist }
 end
 

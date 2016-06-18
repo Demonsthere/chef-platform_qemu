@@ -10,10 +10,10 @@ execute 'Setup the binary register' do
   cwd '/tmp'
   user 'root'
   action :run
-  not_if { ::File.exist?('/home/vagrant/.register_set') }
+  not_if { ::File.exist?('/etc/default/.register_set') }
 end
 
 execute 'Create register timestamp' do
-  command 'echo $(date +%c) > /home/vagrant/.register_set'
+  command 'echo $(date +%c) > /etc/default/.register_set'
   action :run
 end

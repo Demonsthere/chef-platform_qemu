@@ -10,13 +10,13 @@ execute 'update repository cache' do
   action :run
 end
 
-node['platform_qemu']['packages'].each do |pkg|
+node[:platform_qemu][:packages].each do |pkg|
   apt_package pkg do
     options '-o APT::Force-LoopBreak=1'
   end
 end
 
-node['platform_qemu']['linaro_dep'].each do |dep|
+node[:platform_qemu][:linaro_dep].each do |dep|
   apt_package dep
 end
 
@@ -34,7 +34,7 @@ cookbook_file '/sbin/sfdisk' do
 end
 
 git '/usr/sbin/linaro-image-tools' do
-  repository 'http://git.linaro.org/ci/linaro-image-tools.git'
+  repository node[:platform_qemu][:linaro_git]
   reference 'master'
   action :sync
 end
@@ -45,10 +45,10 @@ end
   end
 end
 
-node['platform_qemu']['groups'].each do |grp|
+node[:platform_qemu][:groups].each do |grp|
   group grp do
     action :modify
-    members node['platform_qemu']['users']
+    members node[:platform_qemu][:users]
     append true
   end
 end

@@ -2,7 +2,7 @@ remote_file "#{Chef::Config[:file_cache_path]}/packer.zip" do
   owner 'root'
   group 'root'
   mode '0644'
-  source node['platform_qemu']['packer_url']
+  source node[:platform_qemu][:packer_url]
 end
 
 execute 'unzip packer' do
