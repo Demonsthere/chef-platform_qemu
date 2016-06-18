@@ -14,6 +14,7 @@ node[:platform_qemu][:vagrant_plugins].each do |plugin|
   execute 'Install librivt plugin for vagrant' do
     command "vagrant plugin install #{plugin}"
     user node[:platform_qemu][:user]
+    cwd node[:platform_qemu][:home]
     action :run
   end
 end
