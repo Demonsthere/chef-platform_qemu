@@ -13,11 +13,14 @@ end
 node[:platform_qemu][:packages].each do |pkg|
   apt_package pkg do
     options '-o APT::Force-LoopBreak=1'
+    default_release 'jessie'
   end
 end
 
 node[:platform_qemu][:linaro_dep].each do |dep|
-  apt_package dep
+  apt_package dep do
+    default_release 'jessie'
+  end
 end
 
 execute 'Backup original sfdisk' do
