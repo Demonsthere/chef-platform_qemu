@@ -9,6 +9,7 @@ platforms:
   - name: debian8_local
     driver:
         box: debian8_local
+        box_url: "http://apache.pitux.ovh/data/vagrant/debian8_local"
 
 suites:
   - name: default
@@ -18,5 +19,3 @@ suites:
     driver:
       network:
         - [ 'private_network', { ip: '192.168.24.11' } ]
-      synced_folders:
-        - ["data/", "/home/vagrant/data"]
