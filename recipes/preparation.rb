@@ -1,3 +1,5 @@
+include_recipe 'platform_base::apt_config'
+
 execute 'update repository cache' do
   command 'apt-get update'
   action :run
@@ -6,7 +8,14 @@ end
 node[:platform_qemu][:packages].each do |pkg|
   apt_package pkg do
     options '-o APT::Force-LoopBreak=1'
+    default_release 'stable'
   end
+end
+
+apt_package 'qemu' do
+  action :upgrade
+  options '-o APT::Force-LoopBreak=1'
+  default_release 'testing'
 end
 
 node[:platform_qemu][:linaro_dep].each do |dep|
